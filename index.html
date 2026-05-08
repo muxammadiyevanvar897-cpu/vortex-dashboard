@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VortexCraft | Official Dashboard</title>
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --bg: #050505;
+            --card-bg: #111111;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            color: #ffffff; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container { max-width: 900px; width: 100%; }
+
+        /* Header Section */
+        .header { 
+            background: linear-gradient(135deg, #111, #222); 
+            padding: 50px 20px; 
+            border-radius: 30px; 
+            border: 1px solid #333;
+            text-align: center; 
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
+            margin-bottom: 30px;
+            position: relative; overflow: hidden;
+        }
+
+        h1 { 
+            color: var(--primary); 
+            text-transform: uppercase; 
+            letter-spacing: 8px; 
+            font-size: 40px; margin: 0;
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        /* IP Copy Button */
+        .copy-ip {
+            background: rgba(0, 242, 255, 0.1);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 15px 30px;
+            border-radius: 12px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .copy-ip:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+
+        /* Download Button */
+        .btn-dl {
+            display: block;
+            background: linear-gradient(90deg, var(--secondary), #ff00ea);
+            color: white;
+            padding: 18px;
+            border-radius: 15px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 800;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .btn-dl:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(112, 0, 255, 0.4); }
+
+        /* Info Grid */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 20px; 
+            border: 1px solid #222;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--primary); }
+        .card h3 { color: var(--primary); margin-top: 0; font-size: 22px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        /* Plugin List */
+        .plugin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+        }
+        .plugin-item {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .footer { margin-top: 50px; color: #555; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>VORTEXCRAFT</h1>
+        <p style="color: #888;">Eng kuchli Anarxiya serveri dashboardi</p>
+        
+        <div class="copy-ip" onclick="copyToClipboard()">
+            IP: VortexCraft.uz
+        </div>
+
+        <a href="VortexCraft_Sborka.zip" class="btn-dl">📥 TAYYOR SBORKANI YUKLAB OLISH (.ZIP)</a>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Server Ma'lumotlari</h3>
+            <p>🟢 Holat: <b>Online</b></p>
+            <p>⚙️ Versiya: <b>1.16.5 - 1.21.x</b></p>
+            <p>🗺️ Rejim: <b>Anarxiya / Survival</b></p>
+            <p>👥 Slot: <b>100+</b></p>
+        </div>
+
+        <div class="card">
+            <h3>Barcha Pluginlar</h3>
+            <ul class="plugin-grid">
+                <li class="plugin-item">LuckPerms</li>
+                <li class="plugin-item">EssentialsX</li>
+                <li class="plugin-item">WorldGuard</li>
+                <li class="plugin-item">SkinsRestorer</li>
+                <li class="plugin-item">TAB (Premium)</li>
+                <li class="plugin-item">ZNPCs Plus</li>
+                <li class="plugin-item">Vault / Economy</li>
+                <li class="plugin-item">ViaVersion</li>
+                <li class="plugin-item">AuthMe</li>
+                <li class="plugin-item">ClearLag</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 VortexCraft Project. Barcha huquqlar himoyalangan.
+    </div>
+</div>
+
+<script>
+    function copyToClipboard() {
+        const ip = "VortexCraft.uz";
+        navigator.clipboard.writeText(ip);
+        alert("IP nusxalandi: " + ip + "\nEndi Minecraftga kirib 'Paste' qilishingiz mumkin!");
+    }
+</script>
+
+</body>
+</html>
