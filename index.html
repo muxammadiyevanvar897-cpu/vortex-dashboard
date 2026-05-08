@@ -3,239 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VortexCraft | Rasmiy Sayti</title>
+    <title>VortexCraft | Rasmiy Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Asosiy Ranglar va Shrifitlar */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Poppins:wght@400;600&display=swap');
 
         :root {
-            --primary: #00d4ff;
-            --secondary: #2e5bff;
-            --nitro: #ff00ea;
-            --gold: #ffaa00;
-            --bg: #060912;
-            --card: #111827;
+            --primary: #00f2ff;
+            --bg: #0b0e18;
+            --card-bg: #151a2d;
+            --text: #ffffff;
         }
-
-        * { box-sizing: border-box; transition: 0.3s; }
 
         body {
             background-color: var(--bg);
-            color: #fff;
+            color: var(--text);
             font-family: 'Poppins', sans-serif;
             margin: 0; padding: 0;
-            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 242, 255, 0.1), transparent);
         }
 
-        /* Fon Effektlari */
-        .glow-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, rgba(0,212,255,0.15), transparent);
-            z-index: -1;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
         /* Header */
-        .header {
-            text-align: center;
-            padding: 80px 20px 40px;
+        header { text-align: center; padding-bottom: 50px; }
+        .logo { 
+            font-family: 'Rajdhani', sans-serif; font-size: 65px; font-weight: 700; 
+            letter-spacing: 8px; color: var(--primary); margin: 0;
+            text-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
         }
-
-        .logo {
-            font-size: 50px; font-weight: 800; letter-spacing: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin: 0; filter: drop-shadow(0 0 10px rgba(0,212,255,0.3));
+        
+        .server-ip {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(0, 242, 255, 0.3);
+            padding: 12px 25px; border-radius: 8px; margin-top: 20px;
+            cursor: pointer; transition: 0.3s;
         }
+        .server-ip:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+        .server-ip b { font-size: 20px; letter-spacing: 1px; }
 
-        .online-count {
-            color: #4ecca3; font-weight: bold; font-size: 14px;
-            background: rgba(78, 204, 163, 0.1); padding: 5px 15px;
-            border-radius: 20px; display: inline-block; margin: 10px 0;
-        }
-
-        /* IP va Tugmalar */
-        .main-actions {
-            margin: 30px 0;
-        }
-
-        .ip-box {
-            display: inline-flex; align-items: center; gap: 15px;
-            background: var(--card); border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px 30px; border-radius: 15px; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        .ip-box:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .ip-box b { font-size: 20px; letter-spacing: 1px; color: var(--primary); }
-
-        .btn-tg {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: #2481cc; color: #fff; text-decoration: none;
-            padding: 15px 30px; border-radius: 15px; font-weight: bold;
-            margin-top: 15px;
-        }
-        .btn-tg:hover { background: #2e99eb; transform: scale(1.05); }
-
-        /* Magazin - Ranklar */
-        .section-title { font-size: 30px; text-align: center; margin: 60px 0 30px; }
-
+        /* Magazin */
         .shop-grid {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
         .rank-card {
-            background: var(--card); border-radius: 25px; padding: 30px;
-            border: 1px solid rgba(255,255,255,0.05); position: relative;
-            display: flex; flex-direction: column; overflow: hidden;
+            background: var(--card-bg); border-radius: 15px; padding: 30px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            display: flex; flex-direction: column; position: relative;
+        }
+        .rank-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+
+        .rank-card h3 { 
+            font-family: 'Rajdhani', sans-serif; font-size: 28px; margin: 0; 
+            text-align: center; color: var(--primary);
+        }
+        .price { text-align: center; font-size: 24px; font-weight: 700; margin: 15px 0; }
+
+        .features { list-style: none; padding: 0; margin: 20px 0; flex-grow: 1; font-size: 14px; opacity: 0.9; }
+        .features li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .features li i { margin-right: 10px; color: var(--primary); }
+
+        .status-btn {
+            text-align: center; padding: 12px; border-radius: 6px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--primary);
+            color: var(--primary); font-weight: bold; text-decoration: none;
         }
 
-        .rank-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: var(--primary);
-        }
+        /* Rank Ranglari */
+        .vip h3 { color: #55ff55; } .vip { border-top: 4px solid #55ff55; }
+        .elite h3 { color: #55ffff; } .elite { border-top: 4px solid #55ffff; }
+        .legend h3 { color: #ffaa00; } .legend { border-top: 4px solid #ffaa00; }
+        .nitro h3 { color: #ff55ff; } .nitro { border-top: 4px solid #ff55ff; }
+        .titan h3 { color: #ff5555; } .titan { border-top: 4px solid #ff5555; }
+        .imperator h3 { color: #ffff55; } .imperator { border-top: 4px solid #ffff55; }
+        .lord h3 { color: #aa00aa; } .lord { border-top: 4px solid #aa00aa; }
+        .overlord h3 { color: #aa0000; } .overlord { border-top: 4px solid #aa0000; }
 
-        .rank-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
-
-        .rank-card h3 { font-size: 26px; margin: 0; text-align: center; }
-        .price { 
-            font-size: 28px; font-weight: 800; text-align: center; 
-            margin: 15px 0; color: #fff;
-        }
-
-        .features { list-style: none; padding: 0; margin: 20px 0; flex-grow: 1; }
-        .features li { padding: 10px 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .features li i { color: var(--primary); margin-right: 10px; font-size: 12px; }
-
-        .buy-btn {
-            background: var(--primary); color: #000; text-align: center;
-            padding: 15px; border-radius: 12px; text-decoration: none;
-            font-weight: 800; letter-spacing: 1px;
-        }
-
-        /* Maxsus Rank Ranglari */
-        .nitro-card::before { background: var(--nitro); }
-        .nitro-card h3 { color: var(--nitro); }
-        .titan-card::before { background: #ff4d00; }
-        .titan-card h3 { color: #ff4d00; }
-        .creator-card::before { background: #00ff88; }
-        .creator-card h3 { color: #00ff88; }
-
-        /* Sborka bo'limi */
-        .download-footer {
-            background: rgba(0,0,0,0.3); padding: 60px 20px; margin-top: 80px; text-align: center;
-        }
-
-        .btn-zip {
-            background: #ff0055; color: #fff; text-decoration: none;
-            padding: 20px 40px; border-radius: 50px; font-weight: bold;
-            display: inline-block; box-shadow: 0 0 20px rgba(255,0,85,0.3);
-        }
-
-        .btn-zip:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255,0,85,0.5); }
-
-        footer { padding: 30px; opacity: 0.5; font-size: 13px; text-align: center; }
-
-        @media (max-width: 600px) {
-            .logo { font-size: 35px; }
-            .shop-grid { grid-template-columns: 1fr; }
-        }
+        footer { text-align: center; padding: 60px 0 20px; opacity: 0.3; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="glow-bg"></div>
-
-    <div class="header">
+<div class="container">
+    <header>
         <h1 class="logo">VORTEXCRAFT</h1>
-        <div class="online-count">● SERVER ONLINE</div>
-        
-        <div class="main-actions">
-            <div class="ip-box" onclick="copyIP()">
-                <span>IP MANZIL:</span>
-                <b>VortexCraft.uz</b>
-                <i class="fas fa-copy"></i>
-            </div>
-            <br>
-            <a href="https://t.me/vortexcraftuz" class="btn-tg">
-                <i class="fab fa-telegram-plane"></i> Telegram Kanal @vortexcraftuz
-            </a>
+        <div class="server-ip" onclick="copyIP()">
+            <b>VortexCraft.uz</b> <i class="fas fa-copy"></i>
         </div>
-    </div>
-
-    <h2 class="section-title">Server Do'koni</h2>
+    </header>
 
     <div class="shop-grid">
-        <div class="rank-card">
+        <div class="rank-card vip">
             <h3>VIP</h3>
-            <div class="price">6.000 UZS</div>
+            <div class="price">6,000 UZS</div>
             <ul class="features">
-                <li><i class="fas fa-bolt"></i> /fly (Uchish rejimi)</li>
-                <li><i class="fas fa-bolt"></i> /wb (Virtual stol)</li>
-                <li><i class="fas fa-bolt"></i> /ec (Enderchest)</li>
-                <li><i class="fas fa-bolt"></i> Rangli prefiks: [VIP]</li>
+                <li><i class="fas fa-check"></i> /fly va /wb</li>
+                <li><i class="fas fa-check"></i> /ec (Enderchest)</li>
+                <li><i class="fas fa-check"></i> 2 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> VIP to'plami</li>
             </ul>
-            <a href="https://t.me/vortexcraftuz" class="buy-btn">SOTIB OLISH</a>
+            <div class="status-btn">SOTUVDA</div>
         </div>
 
-        <div class="rank-card nitro-card">
+        <div class="rank-card elite">
+            <h3>ELITE</h3>
+            <div class="price">12,000 UZS</div>
+            <ul class="features">
+                <li><i class="fas fa-check"></i> VIP barcha buyruqlari</li>
+                <li><i class="fas fa-check"></i> /feed va /heal</li>
+                <li><i class="fas fa-check"></i> 3 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> Elite prefiksi</li>
+            </ul>
+            <div class="status-btn">SOTUVDA</div>
+        </div>
+
+        <div class="rank-card legend">
+            <h3>LEGEND</h3>
+            <div class="price">21,000 UZS</div>
+            <ul class="features">
+                <li><i class="fas fa-check"></i> /time set va /weather</li>
+                <li><i class="fas fa-check"></i> 5 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> Region block: 5 ta</li>
+                <li><i class="fas fa-check"></i> Legend kiti</li>
+            </ul>
+            <div class="status-btn">SOTUVDA</div>
+        </div>
+
+        <div class="rank-card nitro">
             <h3>NITRO</h3>
-            <div class="price">43.000 UZS</div>
+            <div class="price">43,000 UZS</div>
             <ul class="features">
-                <li><i class="fas fa-star"></i> /god (O'lmaslik)</li>
-                <li><i class="fas fa-star"></i> /back (Qaytish)</li>
-                <li><i class="fas fa-star"></i> /heal & /feed</li>
-                <li><i class="fas fa-star"></i> Eksklyuziv effektlar</li>
+                <li><i class="fas fa-check"></i> /speed (1-10)</li>
+                <li><i class="fas fa-check"></i> /back (Qaytish)</li>
+                <li><i class="fas fa-check"></i> 8 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> Chatda rangli yozish</li>
             </ul>
-            <a href="https://t.me/vortexcraftuz" class="buy-btn">SOTIB OLISH</a>
+            <div class="status-btn">SOTUVDA</div>
         </div>
 
-        <div class="rank-card titan-card">
+        <div class="rank-card titan">
             <h3>TITAN</h3>
-            <div class="price">85.000 UZS</div>
+            <div class="price">85,000 UZS</div>
             <ul class="features">
-                <li><i class="fas fa-fire"></i> Barcha VIP+Nitro imkonlari</li>
-                <li><i class="fas fa-fire"></i> /mute & /kick ruxsati</li>
-                <li><i class="fas fa-fire"></i> Region: 15 ta block</li>
-                <li><i class="fas fa-fire"></i> Maxsus TITAN kiti</li>
+                <li><i class="fas fa-check"></i> /invsee ruxsati</li>
+                <li><i class="fas fa-check"></i> 15 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> Region block: 12 ta</li>
+                <li><i class="fas fa-check"></i> Titan kiti</li>
             </ul>
-            <a href="https://t.me/vortexcraftuz" class="buy-btn">SOTIB OLISH</a>
+            <div class="status-btn">SOTUVDA</div>
         </div>
 
-        <div class="rank-card creator-card">
-            <h3>CREATOR</h3>
-            <div class="price">400.000 UZS</div>
+        <div class="rank-card imperator">
+            <h3>IMPERATOR</h3>
+            <div class="price">120,000 UZS</div>
             <ul class="features">
-                <li><i class="fas fa-crown"></i> /gm 1 (Creative rejimi)</li>
-                <li><i class="fas fa-crown"></i> Server boshqaruvchisi</li>
-                <li><i class="fas fa-crown"></i> Cheksiz Region & Uylar</li>
-                <li><i class="fas fa-crown"></i> Eng yuqori martaba</li>
+                <li><i class="fas fa-check"></i> /god (O'lmaslik)</li>
+                <li><i class="fas fa-check"></i> /vanish (Yashirinish)</li>
+                <li><i class="fas fa-check"></i> 25 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> Rangli prefikslar</li>
             </ul>
-            <a href="https://t.me/vortexcraftuz" class="buy-btn">SOTIB OLISH</a>
+            <div class="status-btn">SOTUVDA</div>
         </div>
-    </div>
 
-    <div class="download-footer">
-        <h2 style="margin-bottom: 30px;">Serverimizni o'zingizda ham ishlating!</h2>
-        <a href="VortexCraft_Sborka.zip" class="btn-zip">
-            <i class="fas fa-download"></i> TAYYOR SBORKANI YUKLASH (.ZIP)
-        </a>
+        <div class="rank-card lord">
+            <h3>LORD</h3>
+            <div class="price">180,000 UZS</div>
+            <ul class="features">
+                <li><i class="fas fa-check"></i> /tp ruxsati</li>
+                <li><i class="fas fa-check"></i> /kick (O'yinchilarni)</li>
+                <li><i class="fas fa-check"></i> 50 ta uy o'rnatish</li>
+                <li><i class="fas fa-check"></i> Lord qurollari</li>
+            </ul>
+            <div class="status-btn">SOTUVDA</div>
+        </div>
+
+        <div class="rank-card overlord">
+            <h3>OVERLORD</h3>
+            <div class="price">250,000 UZS</div>
+            <ul class="features">
+                <li><i class="fas fa-check"></i> /mute va /unmute</li>
+                <li><i class="fas fa-check"></i> Serverga to'la kirish</li>
+                <li><i class="fas fa-check"></i> Cheksiz uylar</li>
+                <li><i class="fas fa-check"></i> Overlord statusi</li>
+            </ul>
+            <div class="status-btn">SOTUVDA</div>
+        </div>
     </div>
 
     <footer>
-        &copy; 2026 VortexCraft Project. Barcha huquqlar himoyalangan.<br>
-        Dizayn: Professional Minecraft Dashboard
+        &copy; 2026 VortexCraft Project.
     </footer>
+</div>
 
-    <script>
-        function copyIP() {
-            const ip = "VortexCraft.uz";
-            navigator.clipboard.writeText(ip);
-            alert("VortexCraft.uz IP nusxalandi! Endi Minecraftga kirib 'Paste' qiling.");
-        }
-    </script>
+<script>
+    function copyIP() {
+        navigator.clipboard.writeText("VortexCraft.uz");
+        alert("IP nusxalandi: VortexCraft.uz");
+    }
+</script>
 
 </body>
 </html>
